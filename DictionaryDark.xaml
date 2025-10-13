@@ -66,6 +66,16 @@
         <Setter Property="BorderBrush" Value="{StaticResource MainBrush1}"/>
     </Style>
 
+    <Style TargetType="PasswordBox">
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Padding" Value="6"/>
+        <Setter Property="FontFamily" Value="Tahoma"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Background" Value="{StaticResource ExtraBrush2}"/>
+        <Setter Property="Foreground" Value="{StaticResource WhiteTextBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource MainBrush1}"/>
+    </Style>
+
     <Style TargetType="Label">
         <Setter Property="Foreground" Value="{StaticResource GrayTextBrush}"/>
         <Setter Property="FontFamily" Value="Tahoma"/>

@@ -20,33 +20,72 @@
             <RowDefinition Height="217*" />
             <RowDefinition Height="233*" />
         </Grid.RowDefinitions>
+
+        <!-- Левая часть с метками -->
+        <Label Content="Логин"
+               x:Name="labelLogin"
+               Margin="80,63,0,12"
+               HorizontalAlignment="Left"
+               Width="100"
+               Grid.RowSpan="1" />
+
         <Label Content="Пароль"
                x:Name="labelPass"
-               Margin="173,188,0,232"
+               Margin="80,104,0,16"
                HorizontalAlignment="Left"
-               Width="64"
-               Grid.RowSpan="2" />
+               Width="100"
+               Grid.RowSpan="1" />
+
+        <!-- Поле логина -->
         <TextBox x:Name="TextBoxLogin"
-                 Background="Transparent"
-                 Margin="62,0,0,75"
+                 Margin="62,60,0,0"
                  TextWrapping="Wrap"
                  ToolTip="Введите логин или почту"
                  Height="34"
-                 VerticalAlignment="Bottom"
+                 VerticalAlignment="Top"
                  HorizontalAlignment="Left"
-                 Width="134"
+                 Width="180"
                  Grid.Column="1"
+                 Grid.Row="0"
                  TextChanged="TextBoxLogin_TextChanged" />
+
+        <Label x:Name="lblLoginHitn"
+               Foreground="Gray"
+               Content="Введите логин"
+               Grid.Column="1"
+               Grid.Row="0"
+               HorizontalAlignment="Left"
+               Margin="62,60,0,0"
+               VerticalAlignment="Top"
+               Width="180"
+               Height="34"
+               MouseLeftButtonUp="lblLoginHitn_MouseLeftButtonUp" />
+
+        <!-- Поле пароля -->
         <PasswordBox x:Name="PasswordBox"
-                     Background="Transparent"
                      ToolTip="Введите пароль"
-                     Margin="0,0,333,0"
-                     HorizontalAlignment="Right"
-                     Width="134"
-                     Height="32"
-                     VerticalAlignment="Bottom"
+                     Margin="62,105,0,0"
+                     HorizontalAlignment="Left"
+                     Width="180"
+                     Height="34"
+                     VerticalAlignment="Top"
                      Grid.Column="1"
+                     Grid.Row="0"
                      PasswordChanged="PasswordBox_PasswordChanged" />
+
+        <Label x:Name="lblPassHitn"
+               Foreground="Gray"
+               Content="Введите пароль"
+               Grid.Column="1"
+               Grid.Row="0"
+               HorizontalAlignment="Left"
+               Margin="62,105,0,0"
+               VerticalAlignment="Top"
+               Width="180"
+               Height="34"
+               MouseLeftButtonUp="lblPassHitn_MouseLeftButtonUp" />
+
+        <!-- Кнопки в нижней части -->
         <Button x:Name="ButtonEnter"
                 Margin="69,20,0,0"
                 Height="34"
@@ -58,6 +97,7 @@
                 VerticalAlignment="Top"
                 Grid.Column="1"
                 Click="ButtonEnter_OnClick" />
+
         <Button x:Name="ButtonReg"
                 Margin="69,68,0,0"
                 Height="37"
@@ -69,6 +109,7 @@
                 VerticalAlignment="Top"
                 Grid.Column="1"
                 Click="ButtonReg_Click" />
+
         <Button x:Name="ButtonChangePassword"
                 Margin="69,120,0,0"
                 Height="37"
@@ -80,7 +121,18 @@
                 VerticalAlignment="Top"
                 Grid.Column="1"
                 Click="ButtonChangePassword_Click" />
+
+        <!-- Капча (скрыта по умолчанию) -->
+        <Label Content="Капча:"
+               x:Name="labelCaptcha"
+               Visibility="Hidden"
+               Margin="80,75,0,0"
+               HorizontalAlignment="Left"
+               Width="100"
+               Grid.RowSpan="1" />
+
         <TextBox Grid.Column="1"
+                 Grid.Row="0"
                  CommandManager.PreviewExecuted="textBox_PreviewExecuted"
                  ContextMenu="{x:Null}"
                  Visibility="Hidden"
@@ -90,26 +142,29 @@
                  FontStyle="Italic"
                  FontWeight="Heavy"
                  VerticalAlignment="Top"
-                 Width="156"
-                 Background="{x:Null}"
+                 Width="180"
+                 Background="White"
                  FontStretch="UltraCondensed"
                  IsReadOnly="True"
                  HorizontalContentAlignment="Center"
-                 HorizontalAlignment="Right"
-                 Margin="0,96,322,0"
+                 HorizontalAlignment="Left"
+                 Margin="62,60,0,0"
                  VerticalContentAlignment="Center"
                  FontSize="20" />
+
         <TextBox Grid.Column="1"
+                 Grid.Row="0"
                  Visibility="Hidden"
                  x:Name="captchaInput"
                  HorizontalAlignment="Left"
                  Height="34"
-                 Margin="49,183,0,0"
+                 Margin="62,105,0,0"
                  TextWrapping="Wrap"
                  Text=""
                  VerticalAlignment="Top"
-                 Width="160"
+                 Width="180"
                  ToolTip="Введите капчу" />
+
         <Button x:Name="submitCaptcha"
                 Margin="69,20,0,0"
                 Visibility="Hidden"
@@ -122,34 +177,5 @@
                 VerticalAlignment="Top"
                 Grid.Column="1"
                 Click="submitCaptcha_Click" />
-        <Label Content="Капча:"
-               x:Name="labelCaptcha"
-               Margin="178,104,0,87"
-               HorizontalAlignment="Left"
-               Width="54" />
-
-        <!-- Added Placeholder for Login -->
-        <Label x:Name="lblLoginHitn"
-               Foreground="Gray"
-               Content="Введите логин"
-               Grid.Column="1"
-               HorizontalAlignment="Left"
-               Margin="62,0,0,75"
-               VerticalAlignment="Bottom"
-               Width="134"
-               Height="34"
-               MouseLeftButtonUp="lblLoginHitn_MouseLeftButtonUp" />
-
-        <!-- Added Placeholder for Password -->
-        <Label x:Name="lblPassHitn"
-               Foreground="Gray"
-               Content="Введите пароль"
-               Grid.Column="1"
-               HorizontalAlignment="Right"
-               Margin="0,0,333,0"
-               VerticalAlignment="Bottom"
-               Width="134"
-               Height="32"
-               MouseLeftButtonUp="lblPassHitn_MouseLeftButtonUp" />
     </Grid>
 </Page>

@@ -23,19 +23,19 @@ namespace _122_Tsygarin.Pages
     {
         private int failedAttempts = 0;
         private User currentUser;
+
         public AuthPage()
         {
-
             InitializeComponent();
         }
+
         private void TextBoxLogin_TextChanged(object sender, TextChangedEventArgs e)
         {
-            lblLoginHitn.Visibility = Visibility.Visible;
-            if (TextBoxLogin.Text.Length > 0)
-            {
-                lblLoginHitn.Visibility = Visibility.Hidden;
-            }
+            lblLoginHitn.Visibility = TextBoxLogin.Text.Length > 0
+                ? Visibility.Hidden
+                : Visibility.Visible;
         }
+
         private void lblLoginHitn_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             TextBoxLogin.Focus();
@@ -43,11 +43,9 @@ namespace _122_Tsygarin.Pages
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            lblPassHitn.Visibility = Visibility.Visible;
-            if (PasswordBox.Password.Length > 0)
-            {
-                lblPassHitn.Visibility = Visibility.Hidden;
-            }
+            lblPassHitn.Visibility = PasswordBox.Password.Length > 0
+                ? Visibility.Hidden
+                : Visibility.Visible;
         }
 
         private void lblPassHitn_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -59,102 +57,87 @@ namespace _122_Tsygarin.Pages
         {
             using (var hash = SHA1.Create())
             {
-                return
-                string.Concat(hash.ComputeHash(Encoding.UTF8.GetBytes(password)).Select(x =>
-                x.ToString("X2")));
+                return string.Concat(hash.ComputeHash(Encoding.UTF8.GetBytes(password))
+                    .Select(x => x.ToString("X2")));
             }
         }
+
         private void ButtonReg_Click(object sender, RoutedEventArgs e)
         {
             NavigationService?.Navigate(new RegPage());
         }
 
-        private void ButtonChangePassword_Click(object sender,
-        RoutedEventArgs e)
+        private void ButtonChangePassword_Click(object sender, RoutedEventArgs e)
         {
             NavigationService?.Navigate(new ChangePassPage());
         }
 
-        private void txtHintLogin_MouseLeftButtonUp(object sender,
-        MouseButtonEventArgs e)
-        {
-            TextBoxLogin.Focus();
-        }
-
-        private void txtHintPass_MouseLeftButtonUp(object sender,
-        MouseButtonEventArgs e)
-        {
-            PasswordBox.Focus();
-        }
         public void CaptchaSwitch()
         {
-            switch (captcha.Visibility)
+            if (captcha.Visibility == Visibility.Visible)
             {
-                case Visibility.Visible:
-                    TextBoxLogin.Clear();
-                    PasswordBox.Clear();
+                // Скрыть капчу, показать поля входа
+                TextBoxLogin.Clear();
+                PasswordBox.Clear();
 
-                    captcha.Visibility = Visibility.Hidden;
-                    captchaInput.Visibility = Visibility.Hidden;
-                    labelCaptcha.Visibility = Visibility.Hidden;
-                    submitCaptcha.Visibility = Visibility.Hidden;
+                captcha.Visibility = Visibility.Hidden;
+                captchaInput.Visibility = Visibility.Hidden;
+                captchaInput.Clear();
+                labelCaptcha.Visibility = Visibility.Hidden;
+                submitCaptcha.Visibility = Visibility.Hidden;
 
-                    //labelLogin.Visibility = Visibility.Visible;
-                    labelPass.Visibility = Visibility.Visible;
-                    TextBoxLogin.Visibility = Visibility.Visible;
-                    //txtHintLogin.Visibility = Visibility.Visible;
-                    PasswordBox.Visibility = Visibility.Visible;
-                    //txtHintPass.Visibility = Visibility.Visible;
+                labelLogin.Visibility = Visibility.Visible;
+                labelPass.Visibility = Visibility.Visible;
+                TextBoxLogin.Visibility = Visibility.Visible;
+                lblLoginHitn.Visibility = Visibility.Visible;
+                PasswordBox.Visibility = Visibility.Visible;
+                lblPassHitn.Visibility = Visibility.Visible;
 
-                    ButtonChangePassword.Visibility = Visibility.Visible;
-                    ButtonEnter.Visibility = Visibility.Visible;
-                    ButtonReg.Visibility = Visibility.Visible;
-                    return;
-                case Visibility.Hidden:
-                    captcha.Visibility = Visibility.Visible;
-                    captchaInput.Visibility = Visibility.Visible;
-                    labelCaptcha.Visibility = Visibility.Visible;
-                    submitCaptcha.Visibility = Visibility.Visible;
+                ButtonChangePassword.Visibility = Visibility.Visible;
+                ButtonEnter.Visibility = Visibility.Visible;
+                ButtonReg.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                // Показать капчу, скрыть поля входа
+                captcha.Visibility = Visibility.Visible;
+                captchaInput.Visibility = Visibility.Visible;
+                labelCaptcha.Visibility = Visibility.Visible;
+                submitCaptcha.Visibility = Visibility.Visible;
 
-                    //labelLogin.Visibility = Visibility.Hidden;
-                    labelPass.Visibility = Visibility.Hidden;
-                    TextBoxLogin.Visibility = Visibility.Hidden;
-                    //txtHintLogin.Visibility = Visibility.Hidden;
-                    PasswordBox.Visibility = Visibility.Hidden;
-                    //txtHintPass.Visibility = Visibility.Hidden;
+                labelLogin.Visibility = Visibility.Hidden;
+                labelPass.Visibility = Visibility.Hidden;
+                TextBoxLogin.Visibility = Visibility.Hidden;
+                lblLoginHitn.Visibility = Visibility.Hidden;
+                PasswordBox.Visibility = Visibility.Hidden;
+                lblPassHitn.Visibility = Visibility.Hidden;
 
-                    ButtonChangePassword.Visibility = Visibility.Hidden;
-                    ButtonEnter.Visibility = Visibility.Hidden;
-                    ButtonReg.Visibility = Visibility.Hidden;
-                    return;
+                ButtonChangePassword.Visibility = Visibility.Hidden;
+                ButtonEnter.Visibility = Visibility.Hidden;
+                ButtonReg.Visibility = Visibility.Hidden;
             }
         }
-        
 
         public void CaptchaChange()
-
         {
+            string allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+                                 "abcdefghijklmnopqrstuvwxyz" +
+                                 "0123456789";
 
-            String allowchar = " ";
-            allowchar = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z";
-            allowchar += "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,y,z";
-            allowchar += "1,2,3,4,5,6,7,8,9,0";
-            char[] a = { ',' };
-            String[] ar = allowchar.Split(a);
-            String pwd = "";
-            string temp = "";
-            Random r = new Random();
+            StringBuilder pwd = new StringBuilder();
+            Random random = new Random();
 
             for (int i = 0; i < 6; i++)
             {
-                temp = ar[(r.Next(0, ar.Length))];
-                pwd += temp;
+                pwd.Append(allowedChars[random.Next(allowedChars.Length)]);
             }
-            captcha.Text = pwd;
+
+            captcha.Text = pwd.ToString();
+            captchaInput.Clear();
         }
+
         private void submitCaptcha_Click(object sender, RoutedEventArgs e)
         {
-
             if (captchaInput.Text != captcha.Text)
             {
                 MessageBox.Show("Неверно введена капча", "Ошибка");
@@ -167,22 +150,23 @@ namespace _122_Tsygarin.Pages
                 failedAttempts = 0;
             }
         }
+
         private void textBox_PreviewExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             if (e.Command == ApplicationCommands.Copy ||
-            e.Command == ApplicationCommands.Cut ||
-            e.Command == ApplicationCommands.Paste)
+                e.Command == ApplicationCommands.Cut ||
+                e.Command == ApplicationCommands.Paste)
             {
                 e.Handled = true;
             }
         }
+
         private void ButtonEnter_OnClick(object sender, RoutedEventArgs e)
         {
-
             if (string.IsNullOrEmpty(TextBoxLogin.Text) ||
-            string.IsNullOrEmpty(PasswordBox.Password))
+                string.IsNullOrEmpty(PasswordBox.Password))
             {
-                MessageBox.Show("Введите логин или пароль");
+                MessageBox.Show("Введите логин и пароль");
                 return;
             }
 
@@ -191,42 +175,41 @@ namespace _122_Tsygarin.Pages
             using (var db = new Tsygarin_DB_PaymentEntities())
             {
                 var user = db.User
-                .AsNoTracking()
-                .FirstOrDefault(u => u.Login == TextBoxLogin.Text &&
-                u.Password == hashedPassword);
+                    .AsNoTracking()
+                    .FirstOrDefault(u => u.Login == TextBoxLogin.Text &&
+                                        u.Password == hashedPassword);
 
                 if (user == null)
                 {
                     MessageBox.Show("Пользователь с такими данными не найден!");
                     failedAttempts++;
+
                     if (failedAttempts >= 3)
                     {
                         if (captcha.Visibility != Visibility.Visible)
                         {
                             CaptchaSwitch();
+                            CaptchaChange();
                         }
-                        CaptchaChange();
                     }
                     return;
                 }
-                else
+
+                MessageBox.Show("Пользователь успешно найден!");
+
+                switch (user.Role)
                 {
-                    MessageBox.Show("Пользователь успешно найден!");
-
-                    switch (user.Role)
-                    {
-                        case "User":
-                            NavigationService?.Navigate(new Pages.UserPage());
-                            break;
-                        case "Admin":
-                            NavigationService?.Navigate(new Pages.AdminPage());
-                            break;
-
-                    }
+                    case "User":
+                        NavigationService?.Navigate(new Pages.UserPage());
+                        break;
+                    case "Admin":
+                        NavigationService?.Navigate(new Pages.AdminPage());
+                        break;
+                    default:
+                        MessageBox.Show("Неизвестная роль пользователя");
+                        break;
                 }
             }
         }
-
     }
-
 }
