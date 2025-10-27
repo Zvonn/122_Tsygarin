@@ -21,7 +21,16 @@ namespace _122_Tsygarin
             : base("name=Tsygarin_DB_PaymentEntities")
         {
         }
-    
+        private static Tsygarin_DB_PaymentEntities _context;
+        public static Tsygarin_DB_PaymentEntities GetContext()
+        {
+            if (_context == null)
+            {
+                _context = new Tsygarin_DB_PaymentEntities();
+               
+            }
+            return _context;
+        }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

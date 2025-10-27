@@ -20,10 +20,9 @@
     <SolidColorBrush x:Key="WhiteTextBrush" Color="{StaticResource TextColorWhite}"/>
 
     <Style TargetType="Button">
-        <Setter Property="Height" Value="35"/>
+        <Setter Property="Height" Value="30"/>
         <Setter Property="Padding" Value="8"/>
-        <Setter Property="Margin" Value="10,7,0,0"/>
-        
+        <Setter Property="Margin" Value="10,10,10,10"/>
         <Setter Property="FontFamily" Value="Tahoma"/>
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="Background" Value="{StaticResource MainBrush1}"/>
