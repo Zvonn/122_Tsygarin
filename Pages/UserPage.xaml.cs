@@ -12,6 +12,7 @@ namespace _122_Tsygarin.Pages
         public UserPage()
         {
             InitializeComponent();
+       
             LoadUsers();
         }
 
@@ -89,12 +90,18 @@ namespace _122_Tsygarin.Pages
                 }
 
                 // Фильтрация по роли (только администраторы)
-                if (onlyAdminCheckBox.IsChecked.Value)
+
+                if (onlyAdminCheckBox == null)
                 {
-                    currentUsers = currentUsers
-                        .Where(x => x.Role == "Admin")
-                        .ToList();
+                    return;
                 }
+                    if (onlyAdminCheckBox.IsChecked.Value)
+                    {
+                        currentUsers = currentUsers
+                            .Where(x => x.Role == "Admin")
+                            .ToList();
+                    }
+                
 
                 // Сортировка по ФИО (возрастание/убывание)
                 if (sortComboBox.SelectedIndex == 0)

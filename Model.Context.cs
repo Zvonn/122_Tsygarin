@@ -22,11 +22,12 @@ namespace _122_Tsygarin
         {
         }
         private static Tsygarin_DB_PaymentEntities _context;
-        public static DbContext GetContext()
+        public static Tsygarin_DB_PaymentEntities GetContext()
         {
             if (_context == null)
             {
                 _context = new Tsygarin_DB_PaymentEntities();
+               
             }
             return _context;
         }

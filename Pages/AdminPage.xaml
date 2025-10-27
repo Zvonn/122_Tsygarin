@@ -4,7 +4,7 @@
       Title="Администраторская панель">
     
 
-    <Grid Background="{StaticResource ExtraBrush1}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
